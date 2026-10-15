@@ -119,3 +119,15 @@ export function catalogIds(catalog: ApiEntry[] = API_CATALOG): string[] {
 export function allUrlsHttps(catalog: ApiEntry[] = API_CATALOG): boolean {
   return catalog.every((entry) => entry.url.startsWith("https://"));
 }
+
+
+/** A request for the first documented operation, preserving protocol methods. */
+export function exampleRequest(api: ApiEntry) {
+  const tool = api.tools[0];
+  return {
+    jsonrpc: "2.0",
+    id: 1,
+    method: tool.method,
+    ...(tool.method === "tools/call" ? { params: { name: tool.name, arguments: {} } } : {}),
+  };
+}

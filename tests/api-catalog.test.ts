@@ -4,6 +4,7 @@ import {
   API_CATALOG,
   allUrlsHttps,
   catalogIds,
+  exampleRequest,
 } from "../src/lib/api-catalog.ts";
 
 describe("devhub api catalog", () => {
@@ -37,4 +38,10 @@ describe("documented tools", () => {
   it("lists the seven current TechSpace tools", () => {
     assert.deepEqual(API_CATALOG.find(api => api.id === "techspace")!.tools.map(tool => tool.name), ["roll_dice", "list_stacks", "get_stack", "search_stacks", "site_summary", "page_summary", "render_stack_markdown"]);
   });
+});
+
+
+it("uses the catalog method in examples for protocol methods and tool calls", () => {
+  assert.deepEqual(exampleRequest(API_CATALOG.find(api => api.id === "portfolio")!), { jsonrpc: "2.0", id: 1, method: "tools/call", params: { name: "get_projects", arguments: {} } });
+  assert.deepEqual(exampleRequest(API_CATALOG.find(api => api.id === "mcp")!), { jsonrpc: "2.0", id: 1, method: "servers/list" });
 });

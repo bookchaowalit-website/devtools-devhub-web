@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 
-import { API_CATALOG } from "@/lib/api-catalog";
+import { API_CATALOG, exampleRequest } from "@/lib/api-catalog";
 
 export async function generateStaticParams() {
   return API_CATALOG.map(({ id }) => ({ id }));
@@ -76,19 +76,11 @@ export default async function APIDocumentationPage({ params }: { params: Promise
                 </pre>
               </div>
               <div>
-                <p className="text-slate-300 text-sm mb-2">2. Call a specific tool:</p>
+                <p className="text-slate-300 text-sm mb-2">2. Try the first documented operation:</p>
                 <pre className="bg-slate-900 text-blue-400 p-4 rounded-lg overflow-x-auto text-sm">
                   <code>{`curl -X POST ${api.url} \\
   -H "Content-Type: application/json" \\
-  -d '{
-    "jsonrpc": "2.0",
-    "id": 1,
-    "method": "tools/call",
-    "params": {
-      "name": "${api.tools[0].name}",
-      "arguments": {}
-    }
-  }'`}</code>
+  -d '${JSON.stringify(exampleRequest(api), null, 2)}'`}</code>
                 </pre>
               </div>
             </div>
