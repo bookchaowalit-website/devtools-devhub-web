@@ -45,3 +45,12 @@ it("uses the catalog method in examples for protocol methods and tool calls", ()
   assert.deepEqual(exampleRequest(API_CATALOG.find(api => api.id === "portfolio")!), { jsonrpc: "2.0", id: 1, method: "tools/call", params: { name: "get_projects", arguments: {} } });
   assert.deepEqual(exampleRequest(API_CATALOG.find(api => api.id === "mcp")!), { jsonrpc: "2.0", id: 1, method: "servers/list" });
 });
+
+it("provides schema-valid arguments for TechSpace's first roll_dice operation", () => {
+  const request = exampleRequest(API_CATALOG.find(api => api.id === "techspace")!);
+  assert.equal(request.method, "tools/call");
+  assert.equal(request.params?.name, "roll_dice");
+  assert.deepEqual(request.params?.arguments, { sides: 6 });
+  const sides = (request.params?.arguments as { sides?: number })?.sides;
+  assert.ok(Number.isInteger(sides) && sides! >= 2, "roll_dice requires integer sides >= 2");
+});

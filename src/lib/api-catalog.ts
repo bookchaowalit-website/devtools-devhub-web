@@ -1,4 +1,4 @@
-export type ApiTool = { name: string; description: string; method: string };
+export type ApiTool = { name: string; description: string; method: string; exampleArguments?: Record<string, unknown> };
 
 export type ApiEntry = {
   id: string;
@@ -78,7 +78,7 @@ const CATALOG_ENTRIES: Omit<ApiEntry, "endpoints">[] = [
       "Comprehensive information about technology stacks, development platforms, and tools used in modern software development.",
     status: "online",
     tools: [
-      {"name": "roll_dice", "description": "Roll a die", "method": "tools/call"},
+      {"name": "roll_dice", "description": "Roll a die", "method": "tools/call", "exampleArguments": { "sides": 6 }},
       {"name": "list_stacks", "description": "List technology stacks", "method": "tools/call"},
       {"name": "get_stack", "description": "Get a technology stack", "method": "tools/call"},
       {"name": "search_stacks", "description": "Search technology stacks", "method": "tools/call"},
@@ -128,6 +128,6 @@ export function exampleRequest(api: ApiEntry) {
     jsonrpc: "2.0",
     id: 1,
     method: tool.method,
-    ...(tool.method === "tools/call" ? { params: { name: tool.name, arguments: {} } } : {}),
+    ...(tool.method === "tools/call" ? { params: { name: tool.name, arguments: tool.exampleArguments ?? {} } } : {}),
   };
 }
