@@ -4,13 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { Play, Code2, Terminal, Copy, Check, RefreshCw } from 'lucide-react';
 
-const APIS = [
-  { id: 'portfolio', name: 'Portfolio API', url: 'https://bookchaowalit-portfolio-frontend.vercel.app/api/mcp' },
-  { id: 'techblog', name: 'Tech Blog API', url: 'https://bookchaowalit-techblog-frontend.vercel.app/api/mcp' },
-  { id: 'artblog', name: 'Art Blog API', url: 'https://bookchaowalit-artblog-frontend.vercel.app/api/mcp' },
-  { id: 'techspace', name: 'Tech Space API', url: 'https://bookchaowalit-techspace-frontend.vercel.app/api/mcp' },
-  { id: 'mcp', name: 'MCP List Hub', url: 'https://bookchaowalit-mcplist-frontend.vercel.app/api/mcp' }
-];
+import { API_CATALOG as APIS } from "@/lib/api-catalog";
 
 const METHODS = [
   { name: 'List Tools', method: 'tools/list', params: {} },

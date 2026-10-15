@@ -1,77 +1,10 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 
-const apis = {
-  portfolio: {
-    name: 'Portfolio API',
-    description: 'Access projects, skills, blog posts, and GitHub activity',
-    longDescription: 'Comprehensive portfolio API providing access to all your professional information including projects, technical skills, blog posts, and GitHub contribution data.',
-    url: 'https://bookchaowalit-portfolio-frontend.vercel.app/api/mcp',
-    category: 'Portfolio',
-    endpoints: [
-      { name: 'get_projects', description: 'Get all projects', method: 'tools/call' },
-      { name: 'get_skills', description: 'Get technical skills', method: 'tools/call' },
-      { name: 'get_portfolio_blog', description: 'Get blog posts', method: 'tools/call' },
-      { name: 'get_github', description: 'Get GitHub activity', method: 'tools/call' },
-      { name: 'get_contact', description: 'Get contact info', method: 'tools/call' },
-      { name: 'get_about', description: 'Get about info', method: 'tools/call' }
-    ]
-  },
-  techblog: {
-    name: 'Tech Blog API',
-    description: 'Technical articles and programming content',
-    longDescription: 'Access technical articles, tutorials, and programming insights from the Tech Blog with full search and filtering capabilities.',
-    url: 'https://bookchaowalit-techblog-frontend.vercel.app/api/mcp',
-    category: 'Content',
-    endpoints: [
-      { name: 'get_tech_posts', description: 'Get technical blog posts', method: 'tools/call' },
-      { name: 'search_tech_content', description: 'Search by query', method: 'tools/call' },
-      { name: 'get_tech_post', description: 'Get specific post', method: 'tools/call' }
-    ]
-  },
-  artblog: {
-    name: 'Art Blog API',
-    description: 'Creative arts and design content',
-    longDescription: 'Explore creative arts content including illustrations, graphic design, photography, and digital art with rich metadata and tagging.',
-    url: 'https://bookchaowalit-artblog-frontend.vercel.app/api/mcp',
-    category: 'Content',
-    endpoints: [
-      { name: 'get_art_posts', description: 'Get art blog posts', method: 'tools/call' },
-      { name: 'search_art_content', description: 'Search art content', method: 'tools/call' },
-      { name: 'get_art_post', description: 'Get specific art post', method: 'tools/call' }
-    ]
-  },
-  techspace: {
-    name: 'Tech Space API',
-    description: 'Technology stacks and development platforms',
-    longDescription: 'Comprehensive information about technology stacks, development platforms, and tools used in modern software development.',
-    url: 'https://bookchaowalit-techspace-frontend.vercel.app/api/mcp',
-    category: 'Tech',
-    endpoints: [
-      { name: 'get_techspace_articles', description: 'Get tech articles', method: 'tools/call' },
-      { name: 'search_techspace', description: 'Search tech content', method: 'tools/call' },
-      { name: 'get_stack', description: 'Get tech stack info', method: 'tools/call' },
-      { name: 'get_platform', description: 'Get platform details', method: 'tools/call' },
-      { name: 'get_tool', description: 'Get tool info', method: 'tools/call' },
-      { name: 'get_best_practices', description: 'Get best practices', method: 'tools/call' }
-    ]
-  },
-  mcp: {
-    name: 'MCP List Hub',
-    description: 'Central aggregator for all MCP servers',
-    longDescription: 'The central hub that aggregates all MCP servers, providing discovery, documentation, and proxy functionality for the entire ecosystem.',
-    url: 'https://bookchaowalit-mcplist-frontend.vercel.app/api/mcp',
-    category: 'Infrastructure',
-    endpoints: [
-      { name: 'list_servers', description: 'List all MCP servers', method: 'servers/list' },
-      { name: 'get_server', description: 'Get server details', method: 'tools/call' },
-      { name: 'proxy_tool_call', description: 'Proxy tool call', method: 'tools/call' }
-    ]
-  }
-};
+import { API_CATALOG } from "@/lib/api-catalog";
 
 export async function generateStaticParams() {
-  return Object.keys(apis).map((id) => ({ id }));
+  return API_CATALOG.map(({ id }) => ({ id }));
 }
 
 // Force static generation
@@ -79,7 +12,7 @@ export const dynamicParams = false;
 
 export default async function APIDocumentationPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const api = apis[id as keyof typeof apis];
+  const api = API_CATALOG.find(entry => entry.id === id);
 
   if (!api) {
     notFound();
@@ -115,7 +48,7 @@ export default async function APIDocumentationPage({ params }: { params: Promise
           <div className="mb-8">
             <h2 className="text-2xl font-bold text-white mb-4">Endpoints</h2>
             <div className="space-y-4">
-              {api.endpoints.map((endpoint, index) => (
+              {api.tools.map((endpoint, index) => (
                 <div key={index} className="bg-slate-800/50 rounded-lg p-6 border border-slate-700">
                   <div className="flex items-center justify-between mb-2">
                     <h3 className="text-lg font-semibold text-white">{endpoint.name}</h3>
@@ -152,7 +85,7 @@ export default async function APIDocumentationPage({ params }: { params: Promise
     "id": 1,
     "method": "tools/call",
     "params": {
-      "name": "${api.endpoints[0].name}",
+      "name": "${api.tools[0].name}",
       "arguments": {}
     }
   }'`}</code>

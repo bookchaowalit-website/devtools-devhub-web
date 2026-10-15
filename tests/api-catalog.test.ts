@@ -19,3 +19,22 @@ describe("devhub api catalog", () => {
     assert.ok(API_CATALOG.every((entry) => entry.endpoints > 0));
   });
 });
+
+describe("documented tools", () => {
+  it("lists the six portfolio handlers by their actual names", () => {
+    const portfolio = API_CATALOG.find(entry => entry.id === "portfolio")!;
+    assert.deepEqual(portfolio.tools.map(tool => tool.name), ["get_projects", "get_skills", "get_blog_posts", "get_blog_post", "get_github_repos", "get_contact_info"]);
+  });
+
+  it("keeps endpoint counts derived from the shared detail data", () => {
+    for (const api of API_CATALOG) {
+      assert.equal(api.endpoints, api.tools.length);
+      assert.equal(new Set(api.tools.map(tool => tool.name)).size, api.tools.length);
+      assert.ok(api.tools.every(tool => tool.description && tool.method));
+    }
+  });
+
+  it("lists the seven current TechSpace tools", () => {
+    assert.deepEqual(API_CATALOG.find(api => api.id === "techspace")!.tools.map(tool => tool.name), ["roll_dice", "list_stacks", "get_stack", "search_stacks", "site_summary", "page_summary", "render_stack_markdown"]);
+  });
+});
