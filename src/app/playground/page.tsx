@@ -81,8 +81,9 @@ export default function PlaygroundPage() {
               <div className="p-6 space-y-6">
                 {/* API Selection */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">Select API</label>
+                  <label htmlFor="playground-api" className="block text-sm font-medium text-slate-300 mb-2">Select API</label>
                   <select
+                    id="playground-api"
                     value={selectedApi.id}
                     onChange={(e) => setSelectedApi(APIS.find(api => api.id === e.target.value)!)}
                     className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -95,8 +96,9 @@ export default function PlaygroundPage() {
 
                 {/* Method Selection */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">Select Method</label>
+                  <label htmlFor="playground-method" className="block text-sm font-medium text-slate-300 mb-2">Select Method</label>
                   <select
+                    id="playground-method"
                     value={selectedMethod.name}
                     onChange={(e) => setSelectedMethod(METHODS.find(m => m.name === e.target.value)!)}
                     className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
