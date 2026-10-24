@@ -7,3 +7,12 @@ reason = """braces <=3.0.3 stack exhaustion on deeply nested brace patterns. No 
 (3.0.3 is the latest). Dev-only: eslint-config-next -> @next/eslint-plugin-next -> fast-glob -> \
 micromatch -> braces, run at lint time on glob patterns from this repository's own config, never on \
 request input, and not part of the Next.js runtime bundle. Re-check when braces or fast-glob ships a fix."""
+
+[[IgnoredVulns]]
+id = "GHSA-mrhx-c7xc-m3w5"
+ignoreUntil = 2027-01-24T00:00:00Z
+reason = """zod 3.25.76 unbounded array-validation memory exhaustion (CVE-2023-54404). Fixed only in \
+zod 4.6.6; no 3.x fix exists. Dev-only: the shadcn 3.x CLI (^3.24.1) uses it to validate its own \
+registry/config JSON when run by hand; the build only imports shadcn/tailwind.css, and zod is not in \
+the Next.js runtime bundle. The other zod copy (hoisted, used by @modelcontextprotocol/sdk) is 4.6.7. \
+Re-check when moving to shadcn 4.x (zod ^4.2.0). Added 2026-10-24."""
