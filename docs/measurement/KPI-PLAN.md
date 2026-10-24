@@ -77,3 +77,9 @@ Analytics need a paid Vercel plan; choosing the event tool is an owner decision 
 
 - Deployment is not from Git (see `specs/001-strict-build-ci-sentry/spec.md` section 6), so measurement of a
   release depends on a manual deploy.
+
+## Review (2026-10-24): changes requested
+
+Checker: independent Claude reviewer subagent (`solo:solo-reviewer`, Sonnet, read-only, no maker context). Status unchanged until fixed.
+
+- Gap: Marks Vercel Web Analytics page views and Speed Insights as 'live' (KPI-L-01, KPI-G-02, dashboards) from the layout mount alone; project-side enablement is unverified (sibling plans say so): overclaim.
