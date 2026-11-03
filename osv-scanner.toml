@@ -16,3 +16,12 @@ zod 4.6.6; no 3.x fix exists. Dev-only: the shadcn 3.x CLI (^3.24.1) uses it to 
 registry/config JSON when run by hand; the build only imports shadcn/tailwind.css, and zod is not in \
 the Next.js runtime bundle. The other zod copy (hoisted, used by @modelcontextprotocol/sdk) is 4.6.7. \
 Re-check when moving to shadcn 4.x (zod ^4.2.0). Added 2026-10-24."""
+
+[[IgnoredVulns]]
+id = "GHSA-gcqx-w48m-w2h4"
+ignoreUntil = 2027-01-31T00:00:00Z
+reason = """deepmerge 4.3.1 prototype poisoning in mergeObject(). No fixed release exists (4.3.1 is the \
+latest, last_affected 4.3.1), and shadcn up to 4.23.0 still depends on ^4.3.1. Dev-only: the shadcn \
+CLI merges its own components.json/registry config when run by hand; deepmerge is not in the \
+Next.js runtime bundle and never sees request input. Re-check when deepmerge ships a fix or shadcn \
+drops it. Added 2026-11-03."""
