@@ -52,7 +52,7 @@ export default function HomePage() {
         <Link href="/playground" className="devhub-nav-cta"><Terminal size={15} /> open console</Link>
       </header>
 
-      <main>
+      <main id="main-content">
         <section className="devhub-hero" aria-labelledby="devhub-title">
           <div className="devhub-hero-copy">
             <p className="devhub-kicker"><span /> api routing layer / 2026</p>

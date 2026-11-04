@@ -1,0 +1,19 @@
+{
+  "floor": "1.0.0",
+  "public": true,
+  "target": { "serve": ["npm", "run", "start", "--", "-p", "4619"], "url": "http://localhost:4619", "timeoutSeconds": 120 },
+  "routes": [
+    "/",
+    "/apis/portfolio",
+    "/apis/techblog",
+    "/apis/artblog",
+    "/apis/techspace",
+    "/apis/mcp",
+    "/docs",
+    "/playground",
+    "/more-projects",
+    { "path": "/no-such-page/", "status": 404 }
+  ],
+  "widths": [320, 375, 390, 768, 1440],
+  "waivers": []
+}

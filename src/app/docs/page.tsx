@@ -85,7 +85,7 @@ data = response.json()`
 
 export default function DocsPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800">
+    <main id="main-content" className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800">
       <div className="container mx-auto px-4 py-12">
         <Link href="/" className="inline-flex items-center text-slate-400 hover:text-white mb-8">
           ← Back to DevHub
@@ -117,12 +117,12 @@ export default function DocsPage() {
                           <span className="text-xs bg-slate-700 text-slate-300 px-2 py-1 rounded-full">
                             Step {index + 1}
                           </span>
-                          <h3 className="text-lg font-semibold text-white group-hover:text-blue-400 transition-colors">
+                          <h3 className="text-lg font-semibold text-white group-hover:text-blue-300 transition-colors">
                             {step.title}
                           </h3>
                         </div>
                         <p className="text-slate-400 mb-2">{step.description}</p>
-                        <span className="text-sm text-blue-400 flex items-center gap-1 group-hover:gap-2 transition-all">
+                        <span className="text-sm text-blue-300 flex items-center gap-1 group-hover:gap-2 transition-all">
                           Learn more <ArrowRight className="w-4 h-4" />
                         </span>
                       </div>
@@ -165,7 +165,7 @@ export default function DocsPage() {
                   <div className="bg-slate-900 px-6 py-3 border-b border-slate-700">
                     <span className="text-sm font-semibold text-white">{example.language}</span>
                   </div>
-                  <pre className="p-6 overflow-x-auto text-sm">
+                  <pre tabIndex={0} className="p-6 overflow-x-auto text-sm">
                     <code className="text-green-400">{example.code}</code>
                   </pre>
                 </div>
@@ -180,7 +180,7 @@ export default function DocsPage() {
               <div className="space-y-4">
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0 w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                    <span className="text-blue-400 text-sm font-mono">GET</span>
+                    <span className="text-blue-300 text-sm font-mono">GET</span>
                   </div>
                   <div>
                     <h3 className="text-white font-semibold mb-1">initialize</h3>
@@ -200,7 +200,7 @@ export default function DocsPage() {
 
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0 w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                    <span className="text-purple-400 text-sm font-mono">POST</span>
+                    <span className="text-purple-300 text-sm font-mono">POST</span>
                   </div>
                   <div>
                     <h3 className="text-white font-semibold mb-1">tools/call</h3>
@@ -221,7 +221,7 @@ export default function DocsPage() {
               <div className="bg-slate-900 px-6 py-3 border-b border-slate-700">
                 <span className="text-sm font-semibold text-white">Example Response</span>
               </div>
-              <pre className="p-6 overflow-x-auto text-sm">
+              <pre tabIndex={0} className="p-6 overflow-x-auto text-sm">
                 <code className="text-green-400">{`{
   "jsonrpc": "2.0",
   "id": 1,
@@ -258,6 +258,6 @@ export default function DocsPage() {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

@@ -58,7 +58,7 @@ export default function PlaygroundPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800">
+    <main id="main-content" className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800">
       <div className="container mx-auto px-4 py-12">
         <Link href="/" className="inline-flex items-center text-slate-400 hover:text-white mb-8">
           ← Back to DevHub
@@ -120,7 +120,7 @@ export default function PlaygroundPage() {
                 {/* Request Body Preview */}
                 <div>
                   <label className="block text-sm font-medium text-slate-300 mb-2">Request Body</label>
-                  <pre className="bg-slate-900 rounded-lg p-4 text-sm text-green-400 overflow-x-auto font-mono">
+                  <pre tabIndex={0} className="bg-slate-900 rounded-lg p-4 text-sm text-green-400 overflow-x-auto font-mono">
                     {getRequestPreview()}
                   </pre>
                 </div>
@@ -170,7 +170,7 @@ export default function PlaygroundPage() {
                     {response}
                   </pre>
                 ) : (
-                  <div className="flex flex-col items-center justify-center h-full text-slate-500">
+                  <div className="flex flex-col items-center justify-center h-full text-slate-400">
                     <Terminal className="w-16 h-16 mb-4 opacity-50" />
                     <p>Response will appear here</p>
                     <p className="text-sm mt-2">Click &quot;Send Request&quot; to test the API</p>
@@ -190,7 +190,7 @@ export default function PlaygroundPage() {
               {/* cURL */}
               <div>
                 <h3 className="text-sm font-semibold text-slate-300 mb-2">cURL</h3>
-                <pre className="bg-slate-900 rounded-lg p-4 text-sm text-green-400 overflow-x-auto font-mono">
+                <pre tabIndex={0} className="bg-slate-900 rounded-lg p-4 text-sm text-green-400 overflow-x-auto font-mono">
                   <code>{`curl -X POST ${selectedApi.url} \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -205,7 +205,7 @@ export default function PlaygroundPage() {
               {/* JavaScript */}
               <div>
                 <h3 className="text-sm font-semibold text-slate-300 mb-2">JavaScript (fetch)</h3>
-                <pre className="bg-slate-900 rounded-lg p-4 text-sm text-blue-400 overflow-x-auto font-mono">
+                <pre tabIndex={0} className="bg-slate-900 rounded-lg p-4 text-sm text-blue-400 overflow-x-auto font-mono">
                   <code>{`const response = await fetch('${selectedApi.url}', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
@@ -224,7 +224,7 @@ console.log(data);`}</code>
               {/* Python */}
               <div>
                 <h3 className="text-sm font-semibold text-slate-300 mb-2">Python (requests)</h3>
-                <pre className="bg-slate-900 rounded-lg p-4 text-sm text-yellow-400 overflow-x-auto font-mono">
+                <pre tabIndex={0} className="bg-slate-900 rounded-lg p-4 text-sm text-yellow-400 overflow-x-auto font-mono">
                   <code>{`import requests
 
 response = requests.post('${selectedApi.url}', json={
@@ -241,6 +241,6 @@ print(data)`}</code>
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

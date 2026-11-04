@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
@@ -12,6 +13,17 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+// Self-hosted Noto Sans Thai (OFL, see src/app/fonts/OFL.txt): no runtime font CDN.
+const notoSansThai = localFont({
+  src: [
+    { path: "./fonts/NotoSansThai-Variable.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/NotoSansThai-Variable.woff2", weight: "600", style: "normal" },
+    { path: "./fonts/NotoSansThai-Variable.woff2", weight: "700", style: "normal" },
+  ],
+  variable: "--font-sans-thai",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -67,10 +79,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${notoSansThai.variable}`}>
+      <body className="antialiased">
+        <a className="skip-link" href="#main-content">Skip to main content</a>
         {/* THESIS: DevHub is a tactile API routing layer, not a generic SaaS dashboard. OWN-WORLD: dark silk, tensioned gold cords, and a quiet request console turn service discovery into a physical fabric. STORY: find a line, read its contract, run the request. FIRST VIEWPORT: name the portal, show a real request shape, and point directly to the playground. FORM: seed 505a76e5 / assigned textile drawcord direction, used as restrained cable geometry and material contrast. FINISH: warm metallic signal, hairline rules, compact mono labels, and no invented health claims. */}
         <Analytics />
         <SpeedInsights />

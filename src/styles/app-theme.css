@@ -1,0 +1,21 @@
+/*
+ * This app's visual world, in the design-floor token names (ADR-0007 layer 2).
+ * Values match the existing DevHub dark palette in src/app/globals.css.
+ * Change the values here, then record them in DESIGN.md "Tokens".
+ * Keep text contrast at 4.5:1 or more against --color-bg and --color-surface.
+ */
+:root {
+  --color-bg: #10100f;
+  --color-surface: #151514;
+  --color-fg: #f4f0e7;
+  --color-fg-muted: #918b81;
+  --color-accent: #d8a84e;
+  --color-accent-fg: #10100f;
+  --color-border: #3b3a35;
+  --color-focus: #d8a84e;
+
+  /* next/font exposes Geist (Latin) and Noto Sans Thai (Thai) as these variables. */
+  --font-sans: var(--font-geist-sans), var(--font-sans-thai), Arial, sans-serif;
+  --font-serif: Georgia, "Times New Roman", serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}

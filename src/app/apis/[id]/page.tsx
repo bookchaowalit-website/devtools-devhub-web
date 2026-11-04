@@ -19,7 +19,7 @@ export default async function APIDocumentationPage({ params }: { params: Promise
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800">
+    <main id="main-content" className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800">
       <div className="container mx-auto px-4 py-12">
         <Link href="/" className="inline-flex items-center text-slate-400 hover:text-white mb-8">
           ← Back to DevHub
@@ -50,7 +50,7 @@ export default async function APIDocumentationPage({ params }: { params: Promise
             <div className="space-y-4">
               {api.tools.map((endpoint, index) => (
                 <div key={index} className="bg-slate-800/50 rounded-lg p-6 border border-slate-700">
-                  <div className="flex items-center justify-between mb-2">
+                  <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                     <h3 className="text-lg font-semibold text-white">{endpoint.name}</h3>
                     <span className="text-xs bg-slate-700 text-slate-300 px-2 py-1 rounded-full">{endpoint.method}</span>
                   </div>
@@ -65,7 +65,7 @@ export default async function APIDocumentationPage({ params }: { params: Promise
             <div className="space-y-4">
               <div>
                 <p className="text-slate-300 text-sm mb-2">1. Make a POST request to the API endpoint:</p>
-                <pre className="bg-slate-900 text-green-400 p-4 rounded-lg overflow-x-auto text-sm">
+                <pre tabIndex={0} className="bg-slate-900 text-green-400 p-4 rounded-lg overflow-x-auto text-sm">
                   <code>{`curl -X POST ${api.url} \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -77,7 +77,7 @@ export default async function APIDocumentationPage({ params }: { params: Promise
               </div>
               <div>
                 <p className="text-slate-300 text-sm mb-2">2. Try the first documented operation:</p>
-                <pre className="bg-slate-900 text-blue-400 p-4 rounded-lg overflow-x-auto text-sm">
+                <pre tabIndex={0} className="bg-slate-900 text-blue-400 p-4 rounded-lg overflow-x-auto text-sm">
                   <code>{`curl -X POST ${api.url} \\
   -H "Content-Type: application/json" \\
   -d '${JSON.stringify(exampleRequest(api), null, 2)}'`}</code>
@@ -87,6 +87,6 @@ export default async function APIDocumentationPage({ params }: { params: Promise
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }
