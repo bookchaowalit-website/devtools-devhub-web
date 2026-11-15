@@ -8,6 +8,6 @@ const { FlatCompat } = createRequire(import.meta.url)("@eslint/eslintrc");
 const compat = new FlatCompat({ baseDirectory: dirname(fileURLToPath(import.meta.url)) });
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
-  { ignores: [".next/**", "out/**", "build/**", "next-env.d.ts"] },
+  { ignores: [".next/**", "out/**", "build/**", "next-env.d.ts", "vendor/**"] },
 ];
 export default eslintConfig;

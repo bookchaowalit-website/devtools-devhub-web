@@ -28,6 +28,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "deepmerge": "file:./vendor/deepmerge",
     "eslint": "^9",
     "eslint-config-next": "15.5.28",
     "shadcn": "^3.8.5",
@@ -40,6 +41,7 @@
       "postcss": "^8.5.25"
     },
     "glob": "^14.0.3",
-    "minimatch": "^11.0.4"
+    "minimatch": "^11.0.4",
+    "deepmerge": "$deepmerge"
   }
 }
