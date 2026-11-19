@@ -32,7 +32,7 @@ export function CatalogView({ catalog }: { catalog: ApiEntry[] }) {
         <Link className="rs-plain" href="/docs">Read the quick start</Link>
       </ReaderHead>
 
-      <section aria-labelledby="catalog-title">
+      <section className="dh-catalog" aria-labelledby="catalog-title">
         <div className="rs-section-head"><h2 id="catalog-title">Catalog</h2></div>
         {catalog.length === 0 ? (
           <EmptyState title="No APIs in the catalog yet" headingLevel={3}>Add an entry to src/lib/api-catalog.ts to list a service here.</EmptyState>

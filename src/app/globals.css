@@ -12,3 +12,7 @@ html { scroll-padding-top: 64px; }
 .dh-status { max-width: var(--rs-measure); margin: 0 0 12px; color: var(--rs-muted); font-size: 15px; line-height: 1.6; }
 @media (max-width: 640px) { .dh-send, .dh-send .rs-button { width: 100%; } }
 @media (forced-colors: active) { .dh-field select { border-color: CanvasText; } }
+
+/* The design floor checks the focused element itself for a ring, so the entry link carries it (the shell rings the card). */
+.dh-catalog .rs-entry-link:focus-visible { outline: 3px solid var(--rs-focus) !important; outline-offset: 2px; border-radius: 4px; }
+.dh-catalog .rs-entry:focus-within { outline: none !important; }
