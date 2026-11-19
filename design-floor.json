@@ -11,7 +11,6 @@
     "/apis/mcp",
     "/docs",
     "/playground",
-    "/more-projects",
     { "path": "/no-such-page/", "status": 404 }
   ],
   "widths": [320, 375, 390, 768, 1440],

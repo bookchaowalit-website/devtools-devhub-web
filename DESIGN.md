@@ -1,3 +1,12 @@
+# DevHub design
+
+**2026-11-19: moved onto the shared Reader shell** (see `READER.md`; `src/app/reader-shell.css`,
+`src/components/reader-shell.tsx` and `tests/reader-shell.test.tsx` are byte-identical copies from content-techblog-web).
+Every page (home catalog, API pages, docs, playground, 404) uses the same tokens, top bar and footer; the old
+silk/brass home and slate/gradient inner pages are gone. No status, latency or result counts are shown unless
+measured: the Playground shows the real HTTP status of a real request. The notes below describe the earlier look
+and are kept for history.
+
 # DevHub design direction
 
 ## Product world

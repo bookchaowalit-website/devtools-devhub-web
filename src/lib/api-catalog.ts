@@ -5,7 +5,6 @@ export type ApiEntry = {
   name: string;
   description: string;
   longDescription: string;
-  status: "online" | "offline" | "degraded";
   endpoints: number;
   tools: ApiTool[];
   category: string;
@@ -22,7 +21,6 @@ const CATALOG_ENTRIES: Omit<ApiEntry, "endpoints">[] = [
     description: "Access projects, skills, blog posts, and GitHub activity",
     longDescription:
       "Comprehensive portfolio API providing access to all your professional information including projects, technical skills, blog posts, and GitHub contribution data.",
-    status: "online",
     tools: [
       {"name": "get_projects", "description": "Get all projects", "method": "tools/call"},
       {"name": "get_skills", "description": "Get technical skills", "method": "tools/call"},
@@ -42,7 +40,6 @@ const CATALOG_ENTRIES: Omit<ApiEntry, "endpoints">[] = [
     description: "Technical articles and programming content",
     longDescription:
       "Access technical articles, tutorials, and programming insights from the Tech Blog with full search and filtering capabilities.",
-    status: "online",
     tools: [
       {"name": "get_tech_posts", "description": "Get technical blog posts", "method": "tools/call"},
       {"name": "search_tech_content", "description": "Search by query", "method": "tools/call"},
@@ -59,7 +56,6 @@ const CATALOG_ENTRIES: Omit<ApiEntry, "endpoints">[] = [
     description: "Creative arts and design content",
     longDescription:
       "Explore creative arts content including illustrations, graphic design, photography, and digital art with rich metadata and tagging.",
-    status: "online",
     tools: [
       {"name": "get_art_posts", "description": "Get art blog posts", "method": "tools/call"},
       {"name": "search_art_content", "description": "Search art content", "method": "tools/call"},
@@ -76,7 +72,6 @@ const CATALOG_ENTRIES: Omit<ApiEntry, "endpoints">[] = [
     description: "Technology stacks and development platforms",
     longDescription:
       "Comprehensive information about technology stacks, development platforms, and tools used in modern software development.",
-    status: "online",
     tools: [
       {"name": "roll_dice", "description": "Roll a die", "method": "tools/call", "exampleArguments": { "sides": 6 }},
       {"name": "list_stacks", "description": "List technology stacks", "method": "tools/call"},
@@ -97,7 +92,6 @@ const CATALOG_ENTRIES: Omit<ApiEntry, "endpoints">[] = [
     description: "Central aggregator for all MCP servers",
     longDescription:
       "The central hub that aggregates all MCP servers, providing discovery, documentation, and proxy functionality for the entire ecosystem.",
-    status: "online",
     tools: [
       {"name": "servers/list", "description": "List registered MCP servers", "method": "servers/list"},
       {"name": "tools/list", "description": "Discover namespaced tools from registered servers", "method": "tools/list"},
