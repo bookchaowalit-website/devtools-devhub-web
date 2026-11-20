@@ -125,3 +125,21 @@ export function exampleRequest(api: ApiEntry) {
     ...(tool.method === "tools/call" ? { params: { name: tool.name, arguments: tool.exampleArguments ?? {} } } : {}),
   };
 }
+
+/** The methods the Playground can send, with their params. Kept here so server pages can show the same bodies. */
+export const METHODS = [
+  { name: "List tools", method: "tools/list", params: {} },
+  { name: "Initialize", method: "initialize", params: { protocolVersion: "2024-11-05", capabilities: {}, clientInfo: { name: "DevHub Playground", version: "1.0.0" } } },
+];
+
+export function requestBody(method: (typeof METHODS)[number]) {
+  return { jsonrpc: "2.0", id: 1, method: method.method, params: method.params };
+}
+
+// The service the examples call: its endpoint answered tools/list with 200 and CORS "*" in the probe
+// (docs/diagrams/12-api-integration.md); the Portfolio API's vercel.app URL answers 404.
+export const EXAMPLE_API_ID = "techblog";
+
+export function exampleApi(catalog: ApiEntry[]): ApiEntry | undefined {
+  return catalog.find((entry) => entry.id === EXAMPLE_API_ID) ?? catalog[0];
+}

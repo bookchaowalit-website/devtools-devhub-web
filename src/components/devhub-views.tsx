@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArticleHeader, EmptyState, EntryList, Pager, Prose, ReaderHead, TableScroll, neighbours, plural } from "@/components/reader-shell";
 import { DevhubFrame } from "@/components/devhub-frame";
-import { type ApiEntry, exampleRequest } from "@/lib/api-catalog";
+import { METHODS, type ApiEntry, exampleApi, exampleRequest, requestBody } from "@/lib/api-catalog";
 
 export const PROTOCOL_METHODS = [
   { method: "initialize", detail: "Start a session. Returns the server's capabilities and protocol version." },
@@ -20,7 +20,7 @@ function Code({ label, children }: { label: string; children: string }) {
 /** Home: what DevHub is, then the catalog as cards. */
 export function CatalogView({ catalog }: { catalog: ApiEntry[] }) {
   const tools = catalog.reduce((sum, api) => sum + api.endpoints, 0);
-  const first = catalog[0];
+  const first = exampleApi(catalog);
   return (
     <DevhubFrame current="catalog">
       <ReaderHead
@@ -55,8 +55,8 @@ export function CatalogView({ catalog }: { catalog: ApiEntry[] }) {
         <section aria-labelledby="wire-title">
           <div className="rs-section-head"><h2 id="wire-title">A first request</h2></div>
           <Prose>
-            <p>Every service speaks JSON-RPC 2.0 over one <code>POST /api/mcp</code> route. This is the first documented call of the {first.name}, exactly as the Playground sends it:</p>
-            <Code label={`Example request to the ${first.name}`}>{curlFor(first.url, exampleRequest(first))}</Code>
+            <p>Every service speaks JSON-RPC 2.0 over one <code>POST /api/mcp</code> route. This asks the {first.name} for its tools, exactly as the Playground sends it when you choose {first.name} and {METHODS[0].name}:</p>
+            <Code label={`Example request to the ${first.name}`}>{curlFor(first.url, requestBody(METHODS[0]))}</Code>
           </Prose>
         </section>
       ) : null}
@@ -94,10 +94,9 @@ export function ApiView({ api, catalog }: { api: ApiEntry; catalog: ApiEntry[] }
   );
 }
 
-const DOC_EXAMPLE_URL = "https://bookchaowalit-portfolio-frontend.vercel.app/api/mcp";
-
 /** The quick start guide. */
 export function DocsView({ catalog }: { catalog: ApiEntry[] }) {
+  const DOC_EXAMPLE_URL = exampleApi(catalog)?.url ?? "https://example.com/api/mcp";
   return (
     <DevhubFrame current="docs">
       <article className="rs-article">

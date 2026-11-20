@@ -79,3 +79,21 @@ describe("site files", () => {
     expect(urls).toContain("https://devhub.bookchaowalit.com/apis/portfolio");
   });
 });
+
+describe("first request examples (2026-11-19 review)", () => {
+  const techblog = "https://bookchaowalit-techblog-frontend.vercel.app/api/mcp";
+  const deadPortfolio = "https://bookchaowalit-portfolio-frontend.vercel.app/api/mcp";
+  it("home shows a request that runs: tools/list to an endpoint the probe confirmed, as the Playground sends it", () => {
+    const html = renderToString(<HomePage />).replace(/&quot;/g, '"');
+    const example = html.slice(html.indexOf("A first request"));
+    expect(example).toContain(techblog);
+    expect(example).toContain('"method": "tools/list"');
+    expect(example).not.toContain("tools/call");
+    expect(example).not.toContain(deadPortfolio);
+  });
+  it("the quick start examples use a working endpoint", () => {
+    const html = renderToString(<DocsPage />);
+    expect(html).toContain(techblog);
+    expect(html).not.toContain(deadPortfolio);
+  });
+});

@@ -4,16 +4,9 @@ import { useRef, useState } from "react";
 import { Prose, ReaderHead } from "@/components/reader-shell";
 import { DevhubFrame } from "@/components/devhub-frame";
 import { curlFor } from "@/components/devhub-views";
-import type { ApiEntry } from "@/lib/api-catalog";
+import { METHODS, requestBody, type ApiEntry } from "@/lib/api-catalog";
 
-export const METHODS = [
-  { name: "List tools", method: "tools/list", params: {} },
-  { name: "Initialize", method: "initialize", params: { protocolVersion: "2024-11-05", capabilities: {}, clientInfo: { name: "DevHub Playground", version: "1.0.0" } } },
-];
-
-export function requestBody(method: (typeof METHODS)[number]) {
-  return { jsonrpc: "2.0", id: 1, method: method.method, params: method.params };
-}
+export { METHODS, requestBody };
 
 type Result = { state: "idle" } | { state: "loading" } | { state: "done"; status: number; body: string } | { state: "failed"; message: string };
 
