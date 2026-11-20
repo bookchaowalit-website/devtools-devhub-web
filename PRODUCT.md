@@ -130,3 +130,12 @@ Interview case-study pass: 2026-08-05. Found and fixed the CORS chain
 above (this repo + config additions to 4 sibling repos), rewrote generic
 metadata and README. Visual identity (dark slate, blue/purple gradient) —
 real and coherent — was not touched.
+
+## Known limits
+
+- The "send it from your browser in the Playground" link under each API's
+  Quick start opens `/playground` without the API id, so the Playground starts
+  on its default API (Portfolio) instead of the one on the page, and the
+  Playground cannot send the `tools/call` example shown there (it supports
+  `tools/list`). Open the Playground and pick the API by hand.
+  (Codex report devtools-devhub-web-32cf46a1cc, 2026-11-20.)
