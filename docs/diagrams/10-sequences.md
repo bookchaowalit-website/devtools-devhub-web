@@ -72,7 +72,7 @@ sequenceDiagram
     P-->>J: status ok, service, commit
   end
   J->>J: commit equals first 7 of EXPECTED_SHA
-  J->>P: GET /docs expect 200 and Quick Start Guide
+  J->>P: GET /docs expect 200 and Call any DevHub API in three steps
   J-->>G: exit 0 or 1
 ```
 

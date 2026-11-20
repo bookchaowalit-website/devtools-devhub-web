@@ -47,7 +47,7 @@ Sources: `package.json`, `tests/api-catalog.test.ts`, `tests/health.test.ts`, `t
 | `next.config.ts` strict | yes | — | build | `tests/next-config.test.ts` |
 | Sentry disabled without DSN, errors-only, scrub (4 cases) | yes | — | — | `tests/sentry.test.ts` |
 | Home renders "DevHub" | — | — | smoke step 1 | `deploy-smoke.sh` `HOME_MARKER` |
-| `/docs` renders "Quick Start Guide" | — | — | smoke step 3 | `deploy-smoke.sh` `MAIN_MARKER` |
+| `/docs` renders "Call any DevHub API in three steps" | — | — | smoke step 3 | `deploy-smoke.sh` `MAIN_MARKER` |
 | `/apis/[id]` x5 | — | — | build only (SSG) | — **gap** |
 | Playground send/response/error/copy | — | — | — | **gap** |
 | Sibling URL alive + CORS | — | — | — | **gap** (3 of 5 fail live 2026-11-03) |

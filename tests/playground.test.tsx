@@ -83,3 +83,30 @@ describe("playground", () => {
     expect(host.textContent).toContain("No APIs to call");
   });
 });
+
+describe("playground races", () => {
+  it("an older answer that arrives late does not overwrite the latest request", async () => {
+    const pending: Array<(r: Response) => void> = [];
+    const send = vi.fn(() => new Promise<Response>((resolve) => { pending.push(resolve); }));
+    mount(send as unknown as typeof fetch);
+    const [api] = [...host.querySelectorAll("select")];
+    await submit();
+    choose(api, "techblog");
+    await submit();
+    expect(send).toHaveBeenCalledTimes(2);
+    await act(async () => { pending[1](new Response('{"second":true}', { status: 201 })); });
+    expect(status()).toBe("HTTP 201");
+    await act(async () => { pending[0](new Response('{"first":true}', { status: 500 })); });
+    expect(status()).toBe("HTTP 201");
+    expect(host.querySelector('[aria-label="Response body"]')?.textContent).toContain('"second": true');
+  });
+
+  it("an answer for a request made before the API changed is dropped", async () => {
+    let resolve!: (r: Response) => void;
+    mount((() => new Promise<Response>((r) => { resolve = r; })) as unknown as typeof fetch);
+    await submit();
+    choose(host.querySelectorAll("select")[0], "techblog");
+    await act(async () => { resolve(new Response("{}", { status: 200 })); });
+    expect(status()).toContain("Nothing sent yet");
+  });
+});

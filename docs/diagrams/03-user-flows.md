@@ -27,7 +27,7 @@ Sources: `src/app/page.tsx` (nav links, `#catalog`, CTA hrefs), `src/app/apis/[i
 
 ```mermaid
 flowchart TD
-  D["/docs Quick Start Guide"] --> S1["Step 1 Choose Your API: href /#apis"]
+  D["/docs Quick start"] --> S1["Step 1 Choose Your API: href /#apis"]
   D --> S2["Step 2 Get Your Endpoint: href /api/portfolio"]
   D --> S3["Step 3 Make Your First Request: href /playground"]
   S1 --> X1["Home loads, anchor apis does not exist: home uses id catalog"]

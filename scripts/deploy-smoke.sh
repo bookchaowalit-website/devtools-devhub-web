@@ -10,7 +10,7 @@ set -euo pipefail
 HOME_MARKER="DevHub"
 HEALTH_PATH="/api/health"
 MAIN_ROUTE="/docs"
-MAIN_MARKER="Quick Start Guide"
+MAIN_MARKER="Call any DevHub API in three steps"
 
 BASE="${1:?usage: deploy-smoke.sh <base-url> [expected-commit]}"
 BASE="${BASE%/}"

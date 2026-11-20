@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Prose, ReaderHead } from "@/components/reader-shell";
 import { DevhubFrame } from "@/components/devhub-frame";
 import { curlFor } from "@/components/devhub-views";
@@ -26,18 +26,25 @@ export function Playground({ catalog, send = fetch }: { catalog: ApiEntry[]; sen
   const api = catalog.find((entry) => entry.id === apiId) ?? catalog[0];
   const method = METHODS.find((entry) => entry.name === methodName) ?? METHODS[0];
   const body = requestBody(method);
+  // Each send, and each change of API or method, takes a new number; only the latest request may set the result.
+  const requestSeq = useRef(0);
+  const reset = () => { requestSeq.current += 1; setResult({ state: "idle" }); };
 
   const run = async () => {
     if (!api) return;
+    const seq = ++requestSeq.current;
+    const current = () => seq === requestSeq.current;
     setResult({ state: "loading" });
     setCopied("");
     try {
       const res = await send(api.url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
       const text = await res.text();
+      if (!current()) return;
       let pretty = text;
       try { pretty = JSON.stringify(JSON.parse(text), null, 2); } catch { /* not JSON: show it as sent */ }
       setResult({ state: "done", status: res.status, body: pretty });
     } catch (error) {
+      if (!current()) return;
       setResult({ state: "failed", message: error instanceof Error ? error.message : "Unknown error" });
     }
   };
@@ -60,13 +67,13 @@ export function Playground({ catalog, send = fetch }: { catalog: ApiEntry[]; sen
           <form className="dh-form" onSubmit={(event) => { event.preventDefault(); void run(); }}>
             <label className="dh-field">
               <span>API</span>
-              <select value={api.id} onChange={(event) => { setApiId(event.target.value); setResult({ state: "idle" }); }}>
+              <select value={api.id} onChange={(event) => { setApiId(event.target.value); reset(); }}>
                 {catalog.map((entry) => <option key={entry.id} value={entry.id}>{entry.name}</option>)}
               </select>
             </label>
             <label className="dh-field">
               <span>Method</span>
-              <select value={method.name} onChange={(event) => { setMethodName(event.target.value); setResult({ state: "idle" }); }}>
+              <select value={method.name} onChange={(event) => { setMethodName(event.target.value); reset(); }}>
                 {METHODS.map((entry) => <option key={entry.name} value={entry.name}>{entry.name}</option>)}
               </select>
             </label>
