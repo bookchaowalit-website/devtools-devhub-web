@@ -1,9 +1,9 @@
 # 01 — Business process (As-Is / To-Be)
 
-Status: **done**
-
 DevHub เป็น "showcase product / developer portal" (ไม่ใช่ SaaS — `CLASSIFICATION.md` BD-017) ไม่มีบัญชีผู้ใช้ ไม่มีการชำระเงิน
 กระบวนการธุรกิจจริงจึงมีแค่ (ก) นักพัฒนา/ผู้สัมภาษณ์ค้นหาและลอง MCP API ของ portfolio และ (ข) owner ดูแล catalog ให้ตรงกับ repo พี่น้อง
+
+Last reviewed: 2026-11-27 · commit `b91ca8f`
 
 ## As-Is (จากโค้ดวันนี้)
 
@@ -17,7 +17,7 @@ flowchart LR
     V5 --> V6["Browser POSTs JSON-RPC 2.0 cross-origin to sibling /api/mcp"]
     V6 --> V7{"CORS and endpoint OK?"}
     V7 -- "yes" --> V8["JSON result shown, copy to clipboard"]
-    V7 -- "no" --> V9["Raw error JSON shown, no explanation"]
+    V7 -- "no" --> V9["Error state: request failed, service down or CORS not allowed"]
     V2 --> V10["/docs quick start or /more-projects directory"]
   end
   subgraph O["Owner: maintainer"]
@@ -29,12 +29,13 @@ flowchart LR
   O5 -. "catalog now live" .-> V2
 ```
 
-Sources: `src/app/page.tsx`, `src/app/apis/[id]/page.tsx`, `src/app/playground/page.tsx`, `src/app/docs/page.tsx`, `src/app/more-projects/page.tsx`,
+Sources: `src/app/page.tsx`, `src/app/apis/[id]/page.tsx`, `src/app/playground/page.tsx`, `src/components/playground.tsx`, `src/app/docs/page.tsx`, `src/app/more-projects/page.tsx`,
 `src/lib/api-catalog.ts`, `.github/workflows/ci.yml`, `.github/workflows/deploy-smoke.yml`, `scripts/deploy-smoke.sh`, `CLASSIFICATION.md`, `PRODUCT.md`
 
 หมายเหตุ As-Is ที่พบตอนอ่านโค้ด/ตรวจจริง (2026-11-03):
-- Playground ไม่มี error state ที่อธิบายสาเหตุ (`catch` แสดง `error.message` ดิบ) — ตรงกับ PRODUCT.md "What I'd improve next" ข้อ 2
-- การ probe จริง (OPTIONS + POST จาก Origin `https://devhub.bookchaowalit.com`) ได้ผล: techblog 200, mcplist 200 (CORS allowlist ระบุ devhub), portfolio URL ใน catalog ตอบ **404**, artblog ตอบ **308** ไป `/api/mcp/`, techspace POST ตอบ **406** (ต้อง `Accept: application/json, text/event-stream`) — รายละเอียดใน [12-api-integration.md](12-api-integration.md)
+- Playground มี error state ที่อธิบายสาเหตุแล้ว (`src/components/playground.tsx`: "The request failed: ... may not allow requests from this site (CORS)") ซึ่ง PRODUCT.md "What I'd improve next" ข้อ 2 ยังเขียนว่าไม่มี
+- catalog รวมอยู่ที่ `src/lib/api-catalog.ts` ไฟล์เดียวแล้ว (PRODUCT.md ข้อ 4 ยังเขียนว่า hardcode แยก)
+- ผล probe 2026-11-03 ด้านล่างยังไม่ได้ตรวจซ้ำ [ต้องยืนยัน]: การ probe จริง (OPTIONS + POST จาก Origin `https://devhub.bookchaowalit.com`) ได้ผล: techblog 200, mcplist 200 (CORS allowlist ระบุ devhub), portfolio URL ใน catalog ตอบ **404**, artblog ตอบ **308** ไป `/api/mcp/`, techspace POST ตอบ **406** (ต้อง `Accept: application/json, text/event-stream`) — รายละเอียดใน [12-api-integration.md](12-api-integration.md)
 
 ## To-Be
 
@@ -52,6 +53,16 @@ flowchart LR
 ```
 
 Sources: `PRODUCT.md` (What I'd improve next 1–4), `docs/measurement/KPI-PLAN.md` (KPI-O-01, event spec)
+
+## Gap
+
+| ID | As-Is → To-Be | Status | Owner | Evidence |
+|---|---|---|---|---|
+| G1 | Playground error ดิบ → visible error state อธิบาย CORS/endpoint | done | claude | `src/components/playground.tsx` (failed state message) |
+| G2 | catalog hardcode ซ้ำสองที่ → data file เดียว | done | claude | `src/lib/api-catalog.ts` (ใช้โดย page, apis, playground, docs) |
+| G3 | ไม่ emit events → `playground_request_sent` / `succeeded` / `failed` | decide | owner | `docs/measurement/KPI-PLAN.md` (เครื่องมือ events เป็น owner decision) |
+| G4 | KPI-O-01 Playground success rate ไม่เคยวัด → ≥ 95% | todo | claude | `docs/measurement/KPI-PLAN.md` |
+| G5 | endpoint portfolio ใน catalog (ผล probe 2026-11-03 เป็น 404) และชื่อ tool อาจไม่ตรง repo พี่น้อง → ตรงกัน | todo | claude | `PRODUCT.md` (improve next ข้อ 3) [ต้องยืนยัน ด้วย probe ใหม่] |
 
 ## Open questions
 
